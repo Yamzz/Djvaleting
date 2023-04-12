@@ -1,11 +1,26 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using Djvaleting.Server.AppDbContext;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+// For entity Framework
+builder.Services.AddDbContext<ApplicationDbContext>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DjValetingDB"));
+});
+
+//builder.Services.AddDbContext<SolarDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+//builder.Services.AddDbContext<SolarDbContext>(options =>
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings")));
+
+// For DI registration
+//builder.Services.AddTransient<IRepository<Person>, PersonRepository>();
+//builder.Services.AddTransient<IPersonService, PersonService>();
 
 var app = builder.Build();
 

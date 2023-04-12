@@ -18,12 +18,12 @@ namespace Djvaleting.Shared.ViewModels
 
         [Required]
         [Display(Name = "Booking Date")]
-        public string BookingDate { get; set; }
+        public DateTime BookingDate { get; set; }
 
 
         [Required]
         [Display(Name = "Flexibility")]
-        public string Flexibility { get; set; }
+        public int Flexibility { get; set; }
 
 
         [Required]

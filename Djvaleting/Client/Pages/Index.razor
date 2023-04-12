@@ -1,9 +1,82 @@
 ﻿@page "/"
+@using Djvaleting.Shared.ViewModels;
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Dj Valeting Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1 class="text-center">Welcome To Dj Valeting</h1>
+<h5>Please make a Valte booking below</h5>
 
-Welcome to your new app.
+<EditForm Model="@valetBookingViewModel" OnValidSubmit="@OnValidSubmit">
+      <DataAnnotationsValidator />
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <div class="form-group">
+        <label>Name :</label>
+        <div>
+            <InputText @bind-Value="@valetBookingViewModel.Name" />
+            <ValidationMessage For="@(() => valetBookingViewModel.Name)" />
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div>
+            <label>Booking Date</label>
+            <div>
+                <InputDate @bind-Value="@valetBookingViewModel.BookingDate" />
+                <ValidationMessage For="@(() => valetBookingViewModel.BookingDate)" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+        <div>
+            <label>Flexibility</label>
+            <div>
+                <InputNumber @bind-Value="@valetBookingViewModel.Flexibility" />
+                <ValidationMessage For="@(() => valetBookingViewModel.Flexibility)" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="form-group ">
+        <div>
+            <label>Vehicle Size</label>
+            <div>
+                <InputText @bind-Value="@valetBookingViewModel.VehicleSize" />
+                <ValidationMessage For="@(() => valetBookingViewModel.VehicleSize)" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="form-group ">
+        <div>
+            <label>Contact Number</label>
+            <div>
+                <InputText @bind-Value="@valetBookingViewModel.ContactNumber" />
+                <ValidationMessage For="@(() => valetBookingViewModel.ContactNumber)" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="form-group ">
+        <div>
+            <label>Email Address</label>
+            <div>
+                <InputText @bind-Value="@valetBookingViewModel.EmailAddress" />
+                <ValidationMessage For="@(() => valetBookingViewModel.EmailAddress)" />
+            </div>
+        </div>
+    </div>
+    <hr />
+    <button type="submit" class="btn btn-success">
+        @ButtonText
+    </button>
+</EditForm>
+@code {
+    public ValetBookingViewModel valetBookingViewModel = new ValetBookingViewModel();
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+}

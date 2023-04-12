@@ -73,7 +73,7 @@ namespace Djvaleting.Server.Core.Services
             return valetBookingViewModel;
         }
 
-        public Task<bool> UpdateValetBooking(int id, ValetBookingViewModel valetBookingViewModel)
+        public Task<bool> UpdateValetBooking(int id)
         {
             throw new NotImplementedException();
         }

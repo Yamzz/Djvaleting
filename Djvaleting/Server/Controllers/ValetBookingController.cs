@@ -14,7 +14,28 @@ namespace Djvaleting.Server.Controllers
             _valetBookingService = valetBookingService;
         }
 
-        // POST: api/ValetBooking
+        // GET: api/valetbookings
+        [HttpGet]
+        public IActionResult Get()
+        {
+            var employees = _valetBookingService.GetAllValetBookings();
+            return Ok(employees);
+        }
+
+
+        // GET: api/valetbooking/5
+        [HttpGet("{id}", Name = "Get")]
+        public IActionResult Get(int id)
+        {
+            var booking = _valetBookingService.GetValetBooking(id);
+            if (booking == null)
+            {
+                return NotFound("The booking record couldn't be found.");
+            }
+            return Ok(booking);
+        }
+
+        // POST: api/valetbooking
         [HttpPost]
         public IActionResult Post([FromBody] ValetBookingViewModel valetBookingViewModel)
         {
@@ -27,6 +48,33 @@ namespace Djvaleting.Server.Controllers
 
             return Ok(valetBookingViewModel.Id);
         }
-    }
 
+
+        // PUT: api/valetbooking/5
+        [HttpPut("{id}")]
+        public IActionResult Put(long id, [FromBody] ValetBookingViewModel valetBookingViewModel)
+        {
+            if (valetBookingViewModel == null)
+            {
+                return BadRequest("Booking is null.");
+            }
+
+            _valetBookingService.UpdateValetBooking(valetBookingViewModel.Id);
+
+            return Ok(valetBookingViewModel.Id);
+        }
+
+        // DELETE: api/valetbooking/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var booking = _valetBookingService.GetValetBooking(id);
+            if (booking == null)
+            {
+                return NotFound("The booking record couldn't be found.");
+            }
+            _valetBookingService.DeleteValetBooking(booking.Id);
+            return Ok();
+        }
+    }
 }

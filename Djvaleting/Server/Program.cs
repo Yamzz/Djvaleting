@@ -18,6 +18,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
 // For DI registration
 builder.Services.AddTransient<IGenericRepository<ValetBooking>, ValetBookingRepository>();
 builder.Services.AddTransient<IValetBookingService, ValetBookingService>();
+builder.Services.AddTransient<IAccountService, AccountService>();
 
 var app = builder.Build();
 

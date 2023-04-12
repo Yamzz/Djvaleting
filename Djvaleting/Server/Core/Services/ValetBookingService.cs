@@ -73,9 +73,23 @@ namespace Djvaleting.Server.Core.Services
             return valetBookingViewModel;
         }
 
-        public Task<bool> UpdateValetBooking(int id)
+        public async Task<bool> UpdateValetBooking(ValetBookingViewModel valetBookingViewModel)
         {
-            throw new NotImplementedException();
+            var data = await _valetBookingRepository.GetByIdAsync(valetBookingViewModel.Id);
+            if (data != null)
+            {
+                data.Name = valetBookingViewModel.Name;
+                data.EmailAddress = valetBookingViewModel.EmailAddress;
+                data.Flexibility = valetBookingViewModel.Flexibility;
+                data.ContactNumber = valetBookingViewModel.ContactNumber;
+                data.VehicleSize = valetBookingViewModel.VehicleSize;
+                data.BookingDate = valetBookingViewModel.BookingDate;
+
+                await _valetBookingRepository.UpdateAsync(data);
+                return true;
+            }
+            else
+                return false;
         }
     }
 }

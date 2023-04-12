@@ -2,6 +2,7 @@
 @inject HttpClient http;
 @using Djvaleting.Shared.ViewModels;
 @inject NavigationManager uriHelper;
+@inject IJSRuntime JsRuntime;
 
 <PageTitle>Dj Valeting Home</PageTitle>
 
@@ -12,7 +13,7 @@
       <DataAnnotationsValidator />
 
     <div class="form-group">
-        <label>Name :</label>
+        <label>Name</label>
         <div>
             <InputText @bind-Value="@valetBookingViewModel.Name" />
             <ValidationMessage For="@(() => valetBookingViewModel.Name)" />
@@ -84,7 +85,14 @@
 
     protected async Task HandleValidSubmit()
     {
-        await http.PostAsJsonAsync("api/valetbooking", valetBookingViewModel);
+        var response = await http.PostAsJsonAsync("api/valetbooking", valetBookingViewModel);
+        ValetBookingViewModel valetBookingViewModelResponse = await response.Content.ReadFromJsonAsync<ValetBookingViewModel>();
+        if (valetBookingViewModelResponse?.Id > 0)
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Booking Made Successfully!");
+            uriHelper.NavigateTo("/");
+        }
+    
         uriHelper.NavigateTo("/");
     }
 }

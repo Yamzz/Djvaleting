@@ -59,7 +59,7 @@ namespace Djvaleting.Server.Controllers
                 return BadRequest("Booking is null.");
             }
 
-            _valetBookingService.UpdateValetBooking(valetBookingViewModel.Id);
+            _valetBookingService.UpdateValetBooking(valetBookingViewModel);
 
             return Ok(valetBookingViewModel.Id);
         }

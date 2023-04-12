@@ -1,4 +1,7 @@
 using Djvaleting.Server.AppDbContext;
+using Djvaleting.Server.Core.Repository;
+using Djvaleting.Server.Core.Services;
+using Djvaleting.Shared.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,15 +15,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DjValetingDB"));
 });
 
-//builder.Services.AddDbContext<SolarDbContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-//builder.Services.AddDbContext<SolarDbContext>(options =>
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStrings")));
-
 // For DI registration
-//builder.Services.AddTransient<IRepository<Person>, PersonRepository>();
-//builder.Services.AddTransient<IPersonService, PersonService>();
+builder.Services.AddTransient<IGenericRepository<ValetBooking>, ValetBookingRepository>();
+builder.Services.AddTransient<IValetBookingService, ValetBookingService>();
 
 var app = builder.Build();
 

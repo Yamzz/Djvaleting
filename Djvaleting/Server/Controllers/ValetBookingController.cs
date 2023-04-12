@@ -14,7 +14,7 @@ namespace Djvaleting.Server.Controllers
             _valetBookingService = valetBookingService;
         }
 
-        // POST: api/Employee
+        // POST: api/ValetBooking
         [HttpPost]
         public IActionResult Post([FromBody] ValetBookingViewModel valetBookingViewModel)
         {
@@ -25,11 +25,7 @@ namespace Djvaleting.Server.Controllers
 
             _valetBookingService.AddValetBooking(valetBookingViewModel);
 
-            return null;
-            //return CreatedAtRoute(
-            //      "Get",
-            //      new { Id = employee.EmployeeId },
-            //      employee);
+            return Ok(valetBookingViewModel.Id);
         }
     }
 

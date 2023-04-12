@@ -1,12 +1,14 @@
 ﻿@page "/"
+@inject HttpClient http;
 @using Djvaleting.Shared.ViewModels;
+@inject NavigationManager uriHelper;
 
 <PageTitle>Dj Valeting Home</PageTitle>
 
 <h1 class="text-center">Welcome To Dj Valeting</h1>
 <h5>Please make a Valte booking below</h5>
 
-<EditForm Model="@valetBookingViewModel" OnValidSubmit="@OnValidSubmit">
+<EditForm Model="@valetBookingViewModel" OnValidSubmit="@HandleValidSubmit">
       <DataAnnotationsValidator />
 
     <div class="form-group">
@@ -74,10 +76,15 @@
 @code {
     public ValetBookingViewModel valetBookingViewModel = new ValetBookingViewModel();
     [Parameter] public string ButtonText { get; set; } = "Save";
-    [Parameter] public EventCallback OnValidSubmit { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         
+    }
+
+    protected async Task HandleValidSubmit()
+    {
+        await http.PostAsJsonAsync("api/valetbooking", valetBookingViewModel);
+        uriHelper.NavigateTo("/");
     }
 }
